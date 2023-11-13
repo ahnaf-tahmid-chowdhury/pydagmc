@@ -26,17 +26,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
 
-      - name: Install Python Packages
-        run: |
-          python -m pip install wheel
-          python -m pip install "cython<3" numpy pytest setuptools
-
-      - name: Checkout PyNE
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Install Miniconda Windows
@@ -44,6 +35,11 @@ jobs:
         with:
           auto-activate-base: true
           activate-environment: ""
+
+      - name: Install Python Packages
+        run: |
+          python -m pip install wheel
+          python -m pip install "cython<3" numpy pytest setuptools
 
       - name: Install HDF5 and Eigen Windows
         shell: bash -l {0}
