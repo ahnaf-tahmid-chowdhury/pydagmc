@@ -56,7 +56,7 @@ jobs:
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
           echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "EIGEN3_DIR=/c/Miniconda/Library" >> $GITHUB_ENV
-            
+
       - name: Install MOAB Windows
         shell: bash -l {0}
         run: |
@@ -71,6 +71,7 @@ jobs:
             -DCMAKE_INSTALL_PREFIX=$CONDA_LOC \
             -DENABLE_HDF5=ON \
             -DHDF5_ROOT=$CONDA_LOC \
+            -DHDF5_hdf5_LIBRARY_RELEASE="$CONDA_LOC/lib/libhdf5_hl.lib;$CONDA_LOC/lib/libhdf5.lib;$CONDA_LOC/lib/zlib.lib;$CONDA_LOC/lib/libhdf5_cpp.lib" \
             -DBUILD_SHARED_LIBS=ON \
             -DENABLE_PYMOAB=ON \
             -DENABLE_IMESH=OFF \
