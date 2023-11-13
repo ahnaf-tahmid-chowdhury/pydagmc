@@ -82,8 +82,8 @@ jobs:
             -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
             -DCMAKE_STATIC_LINKER_FLAGS="" \
             -DCMAKE_BUILD_TYPE=Release
-          make
-          make install
+            cmake --build . --config Release
+            cmake --install .
           cd $GITHUB_WORKSPACE
           rm -rf $GITHUB_WORKSPACE/moab
           echo "MOAB_ROOT=/c/Miniconda/Library" >> $GITHUB_ENV
