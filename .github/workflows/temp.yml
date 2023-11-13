@@ -41,6 +41,11 @@ jobs:
           cd ${HOME_PATH}
           mkdir install_dir
 
+      - name: Install Python Packages
+        run: |
+          python -m pip install wheel
+          python -m pip install "cython<3" numpy pytest setuptools
+
       - name: Build MOAB
         shell: bash -l {0}
         run: |
