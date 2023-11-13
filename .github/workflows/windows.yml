@@ -6,13 +6,13 @@ on:
 
   pull_request:
     branches:
-      - develop
+      - windows
     paths-ignore:
       - docs/**
 
   push:
     branches:
-      - develop
+      - windows
     paths-ignore:
       - docs/**
 
