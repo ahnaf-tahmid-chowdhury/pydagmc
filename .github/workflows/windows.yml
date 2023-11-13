@@ -77,9 +77,7 @@ jobs:
             -DENABLE_TESTING=OFF \
             -DENABLE_BLASLAPACK=OFF \
             -DENABLE_FORTRAN=OFF \
-            -DCMAKE_EXE_LINKER_FLAGS="/std:c++latest -DH5_BUILT_AS_DYNAMIC_LIB" \
-            -DCMAKE_MODULE_LINKER_FLAGS="/std:c++latest" \
-            -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
+            -DCMAKE_EXE_LINKER_FLAGS="-DH5_BUILT_AS_DYNAMIC_LIB" \
             -DCMAKE_STATIC_LINKER_FLAGS="" \
             -DCMAKE_BUILD_TYPE=Release
             cmake --build . --config Release
