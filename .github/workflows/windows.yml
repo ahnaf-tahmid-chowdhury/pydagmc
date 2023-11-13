@@ -63,7 +63,7 @@ jobs:
 
       - name: Install MOAB Windows
         shell: bash -l {0}
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest-bash'
         run: |
           cd $GITHUB_WORKSPACE
           # clone and version
