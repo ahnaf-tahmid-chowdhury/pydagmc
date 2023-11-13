@@ -44,9 +44,9 @@ jobs:
         shell: bash -l {0}
         run: |
           conda install curl eigen
-          conda install -c conda-forge hdf5 libblas liblapack
+          conda install -c conda-forge hdf5=1.10.6
           conda remove -y yaml-cpp
-          echo "HOME_PATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+          echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
           echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "EIGEN3_DIR=/c/Miniconda/Library" >> $GITHUB_ENV
 
