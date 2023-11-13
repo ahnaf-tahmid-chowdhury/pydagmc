@@ -56,38 +56,37 @@ jobs:
           echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "EIGEN3_DIR=/c/Miniconda/Library" >> $GITHUB_ENV
 
-      - name: Install MOAB Windows
-        shell: bash -l {0}
-        run: |
-          cd $GITHUB_WORKSPACE
-          # clone and version
-          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.5.0
-          cd moab
-          mkdir -p build
-          cd build
-          # cmake, build, and install
-          cmake ../ -G "Visual Studio 17 2022" \
-            -DCMAKE_INSTALL_PREFIX=$CONDA_LOC \
-            -DENABLE_HDF5=ON \
-            -DHDF5_ROOT=$CONDA_LOC \
-            -DBUILD_SHARED_LIBS=ON \
-            -DENABLE_PYMOAB=ON \
-            -DENABLE_IMESH=OFF \
-            -DENABLE_TESTING=OFF \
-            -DENABLE_BLASLAPACK=OFF \
-            -DENABLE_FORTRAN=OFF \
-            -DCMAKE_EXE_LINKER_FLAGS="--std:c++latest -DH5_BUILT_AS_DYNAMIC_LIB" \
-            -DCMAKE_MODULE_LINKER_FLAGS="--std:c++latest" \
-            -DCMAKE_SHARED_LINKER_FLAGS="--std:c++latest" \
-            -DCMAKE_STATIC_LINKER_FLAGS="" \
-            -DCMAKE_BUILD_TYPE=Release
+          - name: Install MOAB Windows
+          run: |
+            Set-Location $Env:GITHUB_WORKSPACE
+            # clone and version
+            git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.5.0
+            Set-Location moab
+            New-Item -ItemType Directory -Force -Path build
+            Set-Location build
+            # cmake, build, and install
+            cmake ../ -G "Visual Studio 17 2022" `
+              -DCMAKE_INSTALL_PREFIX="$Env:CONDA_LOC" `
+              -DCMAKE_EXE_LINKER_FLAGS="/std:c++latest -DH5_BUILT_AS_DYNAMIC_LIB" `
+              -DCMAKE_MODULE_LINKER_FLAGS="/std:c++latest" `
+              -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" `
+              -DCMAKE_STATIC_LINKER_FLAGS="" `
+              -DENABLE_HDF5=ON `
+              -DHDF5_ROOT="$Env:CONDA_LOC" `
+              -DHDF5_hdf5_LIBRARY_RELEASE="$Env:CONDA_LOC\\lib\\libhdf5_hl.lib;$Env:CONDA_LOC\\lib\\libhdf5.lib;$Env:CONDA_LOC\\lib\\zlib.lib;$Env:CONDA_LOC\\lib\\libhdf5_cpp.lib" `
+              -DBUILD_SHARED_LIBS=ON `
+              -DENABLE_PYMOAB=ON `
+              -DENABLE_IMESH=OFF `
+              -DENABLE_TESTING=OFF `
+              -DENABLE_BLASLAPACK=OFF `
+              -DENABLE_FORTRAN=OFF `
+              -DCMAKE_BUILD_TYPE=Release
             cmake --build . --config Release
             cmake --install .
-          cd $GITHUB_WORKSPACE
-          rm -rf $GITHUB_WORKSPACE/moab
-          echo "MOAB_ROOT=/c/Miniconda/Library" >> $GITHUB_ENV
-          echo "MOAB installed"
-
+            Set-Location $Env:GITHUB_WORKSPACE
+            Remove-Item -Force -Recurse moab
+            Add-Content -Path $env:GITHUB_ENV -Value "MOAB_ROOT=C:\Miniconda\Library"
+            Write-Host "MOAB installed"
 
       - name: Install PyDAGMC
         run: |
