@@ -67,7 +67,7 @@ jobs:
           mkdir -p build
           cd build
           # cmake, build, and install
-          cmake ../ -G "Unix Makefiles" \
+          cmake ../ -G "Visual Studio 17 2022" \
             -DCMAKE_INSTALL_PREFIX=$CONDA_LOC \
             -DENABLE_HDF5=ON \
             -DHDF5_ROOT=$CONDA_LOC \
