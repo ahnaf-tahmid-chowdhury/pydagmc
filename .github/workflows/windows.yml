@@ -69,6 +69,8 @@ jobs:
           # cmake, build, and install
           cmake ../ -G "Unix Makefiles" \
             -DCMAKE_INSTALL_PREFIX=$CONDA_LOC \
+            -DCMAKE_EXE_LINKER_FLAGS="/std:c++latest -DH5_BUILT_AS_DYNAMIC_LIB" \
+            -D_USE_MATH_DEFINES=ON \
             -DENABLE_HDF5=ON \
             -DHDF5_ROOT=$CONDA_LOC \
             -DHDF5_hdf5_LIBRARY_RELEASE="$CONDA_LOC/lib/libhdf5_hl.lib;$CONDA_LOC/lib/libhdf5.lib;$CONDA_LOC/lib/zlib.lib;$CONDA_LOC/lib/libhdf5_cpp.lib" \
