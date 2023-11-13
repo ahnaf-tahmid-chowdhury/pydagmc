@@ -77,7 +77,7 @@ jobs:
             -DENABLE_TESTING=OFF \
             -DENABLE_BLASLAPACK=OFF \
             -DENABLE_FORTRAN=OFF \
-            -DCMAKE_CXX_FLAGS="-D_USE_MATH_DEFINES"
+            -DCMAKE_CXX_FLAGS="-D_USE_MATH_DEFINES" \
             -DCMAKE_BUILD_TYPE=Release
           make
           make install
