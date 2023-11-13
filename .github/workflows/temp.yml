@@ -54,7 +54,6 @@ jobs:
                 -DENABLE_IMESH=OFF \
                 -DENABLE_TESTING=OFF \
                 -DENABLE_HDF5=ON \
-                -DENABLE_PYMOAB=ON \
                 -DBUILD_SHARED_LIBS=ON \
                 -G"Visual Studio 16 2019"  \
                 -DCMAKE_INSTALL_PREFIX=../install_dir/ \
@@ -64,8 +63,6 @@ jobs:
                 -DCMAKE_MODULE_LINKER_FLAGS="/std:c++latest" \
                 -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
                 -DCMAKE_STATIC_LINKER_FLAGS="" \
-                -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_C_COMPILER="C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe" \
-                -DCMAKE_CXX_COMPILER="C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe"
+                -DCMAKE_BUILD_TYPE=Release 
           cmake --build . --config Release
           cmake --install . --config Release
