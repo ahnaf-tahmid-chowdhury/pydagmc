@@ -18,7 +18,7 @@ on:
 
 jobs:
   BuildTest:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - uses: conda-incubator/setup-miniconda@v2
         with:
@@ -55,7 +55,7 @@ jobs:
                 -DENABLE_TESTING=OFF \
                 -DENABLE_HDF5=ON \
                 -DBUILD_SHARED_LIBS=ON \
-                -G"Visual Studio 16 2019"  \
+                -G"Visual Studio 17 2022"  \
                 -DCMAKE_INSTALL_PREFIX=../install_dir/ \
                 -DHDF5_ROOT="${CONDA_LOC}" \
                 -DHDF5_hdf5_LIBRARY_RELEASE="${CONDA_LOC}/lib/libhdf5_hl.lib;${CONDA_LOC}/lib/libhdf5.lib;${CONDA_LOC}/lib/zlib.lib;${CONDA_LOC}/lib/libhdf5_cpp.lib" \
