@@ -51,25 +51,26 @@ jobs:
           conda install curl eigen
           conda install -c conda-forge hdf5 libblas liblapack
           conda remove -y yaml-cpp
-          echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
+          echo "HOME_PATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
           echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "EIGEN3_DIR=/c/Miniconda/Library" >> $GITHUB_ENV
 
       - name: Build MOAB
         shell: bash -l {0}
         run: |
-          cd ${HOME_PATH}
+          cd ${$GITHUB_WORKSPACE}
           git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.3.0
           mkdir moab_build
           cd moab_build
           cmake ../moab \
                 -DENABLE_BLASLAPACK=OFF \
                 -DENABLE_FORTRAN=OFF \
+                -DENABLE_PYMOAB=ON \
                 -DENABLE_IMESH=OFF \
                 -DENABLE_TESTING=OFF \
                 -DENABLE_HDF5=ON \
                 -DBUILD_SHARED_LIBS=ON \
-                -G"Visual Studio 16 2019"  \
+                -G"Visual Studio 17 2022"  \
                 -DCMAKE_INSTALL_PREFIX=../install_dir/ \
                 -DHDF5_ROOT="${CONDA_LOC}" \
                 -DHDF5_hdf5_LIBRARY_RELEASE="${CONDA_LOC}/lib/libhdf5_hl.lib;${CONDA_LOC}/lib/libhdf5.lib;${CONDA_LOC}/lib/zlib.lib;${CONDA_LOC}/lib/libhdf5_cpp.lib" \
@@ -78,8 +79,6 @@ jobs:
                 -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
                 -DCMAKE_STATIC_LINKER_FLAGS="" \
                 -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_C_COMPILER="C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe" \
-                -DCMAKE_CXX_COMPILER="C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe"
           cmake --build . --config Release
           cmake --install . --config Release
 
