@@ -98,7 +98,7 @@ jobs:
         run: |
           Set-Location $Env:GITHUB_WORKSPACE
           # clone and version
-          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.5.0
+          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.4.0
           Set-Location moab
           New-Item -ItemType Directory -Force -Path build
           Set-Location build
@@ -111,6 +111,7 @@ jobs:
               -DCMAKE_STATIC_LINKER_FLAGS="" `
               -DENABLE_HDF5=ON `
               -DHDF5_ROOT="$Env:CONDA_LOC" `
+              -DHDF5_hdf5_LIBRARY_RELEASE="$Env:CONDA_LOC\\lib\\libhdf5_hl.lib;$Env:CONDA_LOC\\lib\\libhdf5.lib;$Env:CONDA_LOC\\lib\\zlib.lib;$Env:CONDA_LOC\\lib\\libhdf5_cpp.lib" `
               -DBUILD_SHARED_LIBS=ON `
               -DENABLE_PYMOAB=ON `
               -DENABLE_IMESH=OFF `
