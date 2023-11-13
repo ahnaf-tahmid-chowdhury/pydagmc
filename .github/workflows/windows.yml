@@ -70,13 +70,16 @@ jobs:
             -DCMAKE_INSTALL_PREFIX=$CONDA_LOC \
             -DENABLE_HDF5=ON \
             -DHDF5_ROOT=$CONDA_LOC \
+            -DHDF5_hdf5_LIBRARY_RELEASE="$CONDA_LOC/lib/libhdf5_hl.lib;$CONDA_LOC/lib/libhdf5.lib;$CONDA_LOC/lib/zlib.lib;$CONDA_LOC/lib/libhdf5_cpp.lib" \
             -DBUILD_SHARED_LIBS=ON \
             -DENABLE_PYMOAB=ON \
             -DENABLE_IMESH=OFF \
             -DENABLE_TESTING=OFF \
             -DENABLE_BLASLAPACK=OFF \
             -DENABLE_FORTRAN=OFF \
-            -DCMAKE_EXE_LINKER_FLAGS="-DH5_BUILT_AS_DYNAMIC_LIB" \
+            -DCMAKE_EXE_LINKER_FLAGS="/std:c++latest -DH5_BUILT_AS_DYNAMIC_LIB" \
+            -DCMAKE_MODULE_LINKER_FLAGS="/std:c++latest" \
+            -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
             -DCMAKE_STATIC_LINKER_FLAGS="" \
             -DCMAKE_BUILD_TYPE=Release
             cmake --build . --config Release
