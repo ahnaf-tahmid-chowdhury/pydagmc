@@ -54,6 +54,7 @@ jobs:
                 -DENABLE_IMESH=OFF \
                 -DENABLE_TESTING=OFF \
                 -DENABLE_HDF5=ON \
+                -DENABLE_PYMOAB=ON \
                 -DBUILD_SHARED_LIBS=ON \
                 -G"Visual Studio 17 2022"  \
                 -DCMAKE_INSTALL_PREFIX=../install_dir/ \
