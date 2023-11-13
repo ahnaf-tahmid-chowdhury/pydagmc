@@ -54,12 +54,9 @@ jobs:
           conda install -c conda-forge hdf5 libblas liblapack
           conda remove -y yaml-cpp
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
-          echo "CONDA_LOC=/C/Miniconda/Library" >> $GITHUB_ENV
-          echo "EIGEN3_DIR=/C/Miniconda/Library" >> $GITHUB_ENV
-          Add-Content -Path $env:GITHUB_ENV -Value "HOME_PATH=$env:GITHUB_WORKSPACE\.."
-          Add-Content -Path $env:GITHUB_ENV -Value "CONDA_LOC=C:\\Miniconda\\Library"
-          Add-Content -Path $env:GITHUB_ENV -Value "EIGEN3_DIR=C:\\Miniconda\\Library"
-
+          echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
+          echo "EIGEN3_DIR=/c/Miniconda/Library" >> $GITHUB_ENV
+            
       - name: Install MOAB Windows
         shell: bash -l {0}
         run: |
