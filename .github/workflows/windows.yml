@@ -1,4 +1,4 @@
-name: Quick Wheel test
+name: Windows
 
 on:
   # allows running workflows manually
@@ -48,14 +48,17 @@ jobs:
 
 
       - name: Install HDF5 and Eigen Windows
+        shell: bash -l {0}
         run: |
           conda install curl eigen
           conda install -c conda-forge hdf5 libblas liblapack
           conda remove -y yaml-cpp
+          echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
+          echo "CONDA_LOC=/C/Miniconda/Library" >> $GITHUB_ENV
+          echo "EIGEN3_DIR=/C/Miniconda/Library" >> $GITHUB_ENV
           Add-Content -Path $env:GITHUB_ENV -Value "HOME_PATH=$env:GITHUB_WORKSPACE\.."
           Add-Content -Path $env:GITHUB_ENV -Value "CONDA_LOC=C:\\Miniconda\\Library"
           Add-Content -Path $env:GITHUB_ENV -Value "EIGEN3_DIR=C:\\Miniconda\\Library"
-        if: matrix.os == 'windows-latest'
 
       - name: Install MOAB Windows
         shell: bash -l {0}
@@ -67,15 +70,10 @@ jobs:
           mkdir -p build
           cd build
           # cmake, build, and install
-          cmake ../ -G "Visual Studio 17 2022" \
-            -DCMAKE_INSTALL_PREFIX="$Env:CONDA_LOC" \
-            -DCMAKE_EXE_LINKER_FLAGS="/std:c++latest -DH5_BUILT_AS_DYNAMIC_LIB" \
-            -DCMAKE_MODULE_LINKER_FLAGS="/std:c++latest" \
-            -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
-            -DCMAKE_STATIC_LINKER_FLAGS="" \
+          cmake ../ -G "Unix Makefiles" \
+            -DCMAKE_INSTALL_PREFIX=$CONDA_LOC \
             -DENABLE_HDF5=ON \
-            -DHDF5_ROOT="$Env:CONDA_LOC" \
-            -DHDF5_hdf5_LIBRARY_RELEASE="$Env:CONDA_LOC\\lib\\libhdf5_hl.lib;$Env:CONDA_LOC\\lib\\libhdf5.lib;$Env:CONDA_LOC\\lib\\zlib.lib;$Env:CONDA_LOC\\lib\\libhdf5_cpp.lib" \
+            -DHDF5_ROOT=$CONDA_LOC \
             -DBUILD_SHARED_LIBS=ON \
             -DENABLE_PYMOAB=ON \
             -DENABLE_IMESH=OFF \
@@ -87,8 +85,7 @@ jobs:
           make install
           cd $GITHUB_WORKSPACE
           rm -rf $GITHUB_WORKSPACE/moab
-          Add-Content -Path $env:GITHUB_ENV -Value "MOAB_ROOT="
-          echo "MOAB_ROOT=C:\Miniconda\Library" >> $GITHUB_ENV
+          echo "MOAB_ROOT=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "MOAB installed"
 
 
