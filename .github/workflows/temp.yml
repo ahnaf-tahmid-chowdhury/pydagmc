@@ -37,7 +37,7 @@ jobs:
         shell: bash -l {0}
         run: |
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
-          echo "CONDA_LOC=C:/Miniconda/Library" >> $GITHUB_ENV
+          echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
 
       - name: Install Python Packages
         run: |
