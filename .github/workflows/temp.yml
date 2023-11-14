@@ -38,8 +38,6 @@ jobs:
         run: |
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
           echo "CONDA_LOC=C:/Miniconda/Library" >> $GITHUB_ENV
-          cd ${HOME_PATH}
-          mkdir install_dir
 
       - name: Install Python Packages
         run: |
@@ -49,11 +47,12 @@ jobs:
       - name: Build MOAB
         shell: bash -l {0}
         run: |
-          cd ${HOME_PATH}
+          cd $GITHUB_WORKSPACE
           git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.3.0
-          mkdir moab_build
-          cd moab_build
-          cmake ../moab \
+          cd moab
+          mkdir -p build
+          cd build
+          cmake ../ \
                 -DENABLE_BLASLAPACK=OFF \
                 -DENABLE_FORTRAN=OFF \
                 -DENABLE_IMESH=OFF \
