@@ -48,13 +48,15 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE
-          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.3.0
+          #git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.3.0
+          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git
           cd moab
           mkdir -p build
           cd build
           cmake ../ \
                 -DENABLE_BLASLAPACK=OFF \
                 -DENABLE_FORTRAN=OFF \
+                -DENABLE_PYMOAB=ON \
                 -DENABLE_NETCDF=OFF \
                 -DENABLE_HDF5=ON \
                 -DBUILD_SHARED_LIBS=ON \
