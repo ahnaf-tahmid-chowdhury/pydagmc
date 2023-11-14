@@ -26,17 +26,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install Python Packages
-        run: |
-          python -m pip install wheel
-          python -m pip install "cython<3" numpy pytest setuptools
-
-      - name: Checkout PyNE
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Install Miniconda Windows
@@ -52,8 +42,7 @@ jobs:
           conda install -c conda-forge hdf5 libblas liblapack
           conda remove -y yaml-cpp
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
-          echo "CONDA_LOC=C:/Miniconda/Library" >> $GITHUB_ENV
-          echo "EIGEN3_DIR=C:/Miniconda/Library" >> $GITHUB_ENV
+          echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
 
       - name: Install MOAB Windows
         shell: bash -l {0}
@@ -83,7 +72,6 @@ jobs:
           cmake --install .
           cd $GITHUB_WORKSPACE
           rm -rf $GITHUB_WORKSPACE/moab
-          echo "MOAB_ROOT=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "MOAB installed"
 
       - name: Install MOAB-Python
