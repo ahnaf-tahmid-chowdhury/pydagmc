@@ -52,8 +52,8 @@ jobs:
           conda install -c conda-forge hdf5 libblas liblapack
           conda remove -y yaml-cpp
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
-          echo "CONDA_LOC=/c/Miniconda/Library" >> $GITHUB_ENV
-          echo "EIGEN3_DIR=/c/Miniconda/Library" >> $GITHUB_ENV
+          echo "CONDA_LOC=C:/Miniconda/Library" >> $GITHUB_ENV
+          echo "EIGEN3_DIR=C:/Miniconda/Library" >> $GITHUB_ENV
 
       - name: Install MOAB Windows
         shell: bash -l {0}
@@ -89,13 +89,13 @@ jobs:
       - name: Install MOAB-Python
         shell: bash -l {0}
         run: |
-          $(conda info --base)/bin/python -m pip install git+https://github.com/Thea-Energy/moab-python.git
+          python -m pip install git+https://github.com/Thea-Energy/moab-python.git
 
       - name: Install PyDAGMC
         run: |
-          $(conda info --base)/bin/python -m pip install .
+          python -m pip install .
 
       - name: Test PyDAGMC
         run: |
-          $(conda info --base)/bin/python -m pip install pytest
-          $(conda info --base)/bin/python -m pytest -ra tests
+          python -m pip install pytest
+          python -m pytest -ra tests

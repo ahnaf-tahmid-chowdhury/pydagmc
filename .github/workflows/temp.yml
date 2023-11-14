@@ -75,14 +75,13 @@ jobs:
       - name: Install MOAB-Python
         shell: bash -l {0}
         run: |
-          which python
-          ${CONDA_LOC}/bin/python -m pip install git+https://github.com/Thea-Energy/moab-python.git
+          python -m pip install git+https://github.com/Thea-Energy/moab-python.git
 
       - name: Install PyDAGMC
         run: |
-          ${CONDA_LOC}/bin/python -m pip install .
+          python -m pip install .
 
       - name: Test PyDAGMC
         run: |
-          ${CONDA_LOC}/bin/python -m pip install pytest
-          ${CONDA_LOC}/bin/python -m pytest -ra tests
+          python -m pip install pytest
+          python -m pytest -ra tests
