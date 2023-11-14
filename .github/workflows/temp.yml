@@ -43,6 +43,8 @@ jobs:
         run: |
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
           echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
+          echo $(where python)
+          echo "$(which python)"
           echo "PYTHON_EXECUTABLE=$(which python)" >> $GITHUB_ENV
 
       - name: Build MOAB
