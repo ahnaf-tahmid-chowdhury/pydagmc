@@ -42,7 +42,7 @@ jobs:
           conda install -c conda-forge hdf5 libblas liblapack
           conda remove -y yaml-cpp
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
-          echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
+          echo "CONDA_LOC=$(conda info --base)" >> $GITHUB_ENV
 
       - name: Install MOAB Windows
         shell: bash -l {0}
