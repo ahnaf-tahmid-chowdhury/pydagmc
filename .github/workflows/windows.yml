@@ -49,7 +49,7 @@ jobs:
           conda remove -y yaml-cpp
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
           echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
-          echo "Python3_ROOT_DIR=$(conda info --base)" >> $GITHUB_ENV
+          echo "PYTHON_EXECUTABLE=$(which python)" >> $GITHUB_ENV
 
       - name: Install MOAB Windows
         shell: bash -l {0}
