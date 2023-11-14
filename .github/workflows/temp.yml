@@ -48,7 +48,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE
-          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.3.0
+          git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.5.0
           cd moab
           mkdir -p build
           cd build
