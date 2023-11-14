@@ -70,7 +70,6 @@ jobs:
             -DENABLE_HDF5=ON \
             -DHDF5_ROOT=$CONDA_LOC \
             -DBUILD_SHARED_LIBS=ON \
-            -DENABLE_PYMOAB=ON \
             -DENABLE_IMESH=OFF \
             -DENABLE_TESTING=OFF \
             -DENABLE_BLASLAPACK=OFF \
@@ -80,12 +79,17 @@ jobs:
             -DCMAKE_SHARED_LINKER_FLAGS="/std:c++latest" \
             -DCMAKE_STATIC_LINKER_FLAGS="" \
             -DCMAKE_BUILD_TYPE=Release
-            cmake --build . --config Release
-            cmake --install .
+          cmake --build . --config Release
+          cmake --install .
           cd $GITHUB_WORKSPACE
           rm -rf $GITHUB_WORKSPACE/moab
           echo "MOAB_ROOT=/c/Miniconda/Library" >> $GITHUB_ENV
           echo "MOAB installed"
+
+      - name: Install MOAB-Python
+        shell: bash -l {0}
+        run: |
+          $(conda info --base)/bin/python -m pip install git+https://github.com/Thea-Energy/moab-python.git
 
       - name: Install PyDAGMC
         run: |
