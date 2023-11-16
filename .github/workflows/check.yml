@@ -45,6 +45,31 @@ jobs:
           echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
           echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
 
+
+      - name: Build MOAB
+        shell: bash -l {0}
+        run: |
+          cd $GITHUB_WORKSPACE
+          #git clone --depth 1 https://bitbucket.org/fathomteam/moab -b 5.3.0
+          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git
+          cd moab
+          mkdir -p build
+          cd build
+          cmake ../ \
+                -DENABLE_BLASLAPACK=OFF \
+                -DENABLE_FORTRAN=OFF \
+                -DENABLE_PYMOAB=ON \
+                -DENABLE_NETCDF=OFF \
+                -DENABLE_HDF5=ON \
+                -DBUILD_SHARED_LIBS=ON \
+                -G"Visual Studio 17 2022"  \
+                -DCMAKE_INSTALL_PREFIX="${CONDA_LOC}/.." \
+                -DHDF5_ROOT="${CONDA_LOC}" \
+                -DHDF5_hdf5_LIBRARY_RELEASE="${CONDA_LOC}/lib/libhdf5_hl.lib;${CONDA_LOC}/lib/libhdf5.lib;${CONDA_LOC}/lib/zlib.lib;${CONDA_LOC}/lib/libhdf5_cpp.lib" \
+                -DCMAKE_BUILD_TYPE=Release 
+          cmake --build . --config Release
+          cmake --install . --config Release
+
       - name: Find MOAB
         shell: bash -l {0}
         run: |
