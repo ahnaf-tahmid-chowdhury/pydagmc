@@ -69,11 +69,6 @@ jobs:
           cmake --build . --config Release
           cmake --install . --config Release
 
-      - name: Install MOAB-Python
-        shell: bash -l {0}
-        run: |
-          python -m pip install git+https://github.com/Thea-Energy/moab-python.git --prefix=${CONDA_LOC}
-
       - name: Install PyDAGMC
         run: |
           python -m pip install .
