@@ -60,7 +60,7 @@ jobs:
                 -DENABLE_FORTRAN=OFF \
                 -DENABLE_PYMOAB=ON \
                 -DENABLE_NETCDF=OFF \
-                -DENABLE_HDF5=ON \
+                -DENABLE_HDF5=OFF \
                 -DBUILD_SHARED_LIBS=ON \
                 -G"Visual Studio 17 2022"  \
                 -DCMAKE_INSTALL_PREFIX="${CONDA_LOC}/.." \

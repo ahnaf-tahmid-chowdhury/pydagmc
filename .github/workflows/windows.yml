@@ -10,12 +10,6 @@ on:
     paths-ignore:
       - docs/**
 
-  push:
-    branches:
-      - windows
-    paths-ignore:
-      - docs/**
-
 jobs:
   main:
     strategy:
