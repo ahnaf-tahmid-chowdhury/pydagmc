@@ -48,4 +48,5 @@ jobs:
       - name: Find MOAB
         shell: bash -l {0}
         run: |
-         dir MOAB.lib /s /p
+            find $CONDA_LOC -name MOAB.lib 2>/dev/null
+
