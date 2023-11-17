@@ -63,7 +63,7 @@ jobs:
                 -DENABLE_HDF5=OFF \
                 -DBUILD_SHARED_LIBS=ON \
                 -G"Visual Studio 17 2022"  \
-                -DCMAKE_INSTALL_PREFIX="${CONDA_LOC}/.." \
+                -DCMAKE_INSTALL_PREFIX="${CONDA_LOC}/" \
                 -DHDF5_ROOT="${CONDA_LOC}" \
                 -DHDF5_hdf5_LIBRARY_RELEASE="${CONDA_LOC}/lib/libhdf5_hl.lib;${CONDA_LOC}/lib/libhdf5.lib;${CONDA_LOC}/lib/zlib.lib;${CONDA_LOC}/lib/libhdf5_cpp.lib" \
                 -DCMAKE_BUILD_TYPE=Release 
@@ -74,5 +74,7 @@ jobs:
         shell: bash -l {0}
         run: |
             cd $CONDA_LOC/lib
+            ls
+            cd $CONDA_LOC/../lib
             ls
 
