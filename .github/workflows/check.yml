@@ -56,7 +56,7 @@ jobs:
           mkdir -p build
           cd build
           cmake ../ \
-                -DPYTHON_EXECUTABLE="$(conda info --base)/bin/python.exe" \
+                -DPYTHON_EXECUTABLE="python" \
                 -DENABLE_BLASLAPACK=OFF \
                 -DENABLE_FORTRAN=OFF \
                 -DENABLE_PYMOAB=ON \
