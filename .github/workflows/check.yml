@@ -70,11 +70,11 @@ jobs:
           cmake --build . --config Release
           cmake --install . --config Release
 
-      - name: Find MOAB
+      - name: Find MOAB lib
         shell: bash -l {0}
         run: |
             cd $CONDA_LOC/lib
-            ls
-            cd $CONDA_LOC/../lib
-            ls
+            ls -l
+            find . -name "MOAB*"
+
 
