@@ -57,7 +57,7 @@ jobs:
         run: |
           _sdk_root=`xcrun --sdk macosx --show-sdk-path`
           export LIBRARY_PATH="${_sdk_root}/usr/lib"
-          xcode-select --switch /Library/Developer/CommandLineTools
+          sudo xcode-select --switch /Library/Developer/CommandLineTools
 
         if: ${{ matrix.os == 'macos-latest' }}
       - name: Install HDF5 and Eigen Windows
