@@ -50,12 +50,7 @@ jobs:
 
       - name: Install HDF5 and Eigen MacOS
         run: |
-          xcode-select --install
-          brew install hdf5 eigen
-          export HDF5_ROOT=/usr/local/opt/hdf5
-          export LD_LIBRARY_PATH="${HDF5_ROOT}/lib:${LD_LIBRARY_PATH}"
-          _sdk_root=`xcrun --sdk macosx --show-sdk-path`
-          export LIBRARY_PATH="${_sdk_root}/usr/lib"
+          brew install hdf5 gcc@6 eigen
         if: ${{ matrix.os == 'macos-latest' }}
 
       - name: Install HDF5 and Eigen Windows
