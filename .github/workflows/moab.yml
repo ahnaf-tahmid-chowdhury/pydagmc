@@ -50,7 +50,7 @@ jobs:
 
       - name: Install HDF5 and Eigen MacOS
         run: |
-          brew install hdf5 eigen
+          brew install hdf5 eigen gcc
         if: ${{ matrix.os == 'macos-latest' }}
 
       - name: Fix 'stdlib.h' file not found error
