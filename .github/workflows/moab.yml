@@ -48,18 +48,11 @@ jobs:
           export LD_LIBRARY_PATH="${HDF5_ROOT}:${LD_LIBRARY_PATH}"
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
-      - name: Install HDF5 and Eigen MacOS
+      - name: Install HDF5, GCC and Eigen MacOS
         run: |
-          brew install hdf5 eigen gcc
+          brew install eigen gcc hdf5
         if: ${{ matrix.os == 'macos-latest' }}
 
-      - name: Fix 'stdlib.h' file not found error
-        run: |
-          _sdk_root=`xcrun --sdk macosx --show-sdk-path`
-          export LIBRARY_PATH="${_sdk_root}/usr/lib"
-          sudo xcode-select --switch /Library/Developer/CommandLineTools
-
-        if: ${{ matrix.os == 'macos-latest' }}
       - name: Install HDF5 and Eigen Windows
         shell: bash -l {0}
         run: |
