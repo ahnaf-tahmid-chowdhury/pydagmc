@@ -50,9 +50,16 @@ jobs:
 
       - name: Install HDF5 and Eigen MacOS
         run: |
-          brew install hdf5 gcc@6 eigen
+          brew install hdf5 eigen
         if: ${{ matrix.os == 'macos-latest' }}
 
+      - name: Fix 'stdlib.h' file not found error
+        run: |
+          _sdk_root=`xcrun --sdk macosx --show-sdk-path`
+          export LIBRARY_PATH="${_sdk_root}/usr/lib"
+          xcode-select --switch /Library/Developer/CommandLineTools
+
+        if: ${{ matrix.os == 'macos-latest' }}
       - name: Install HDF5 and Eigen Windows
         shell: bash -l {0}
         run: |
