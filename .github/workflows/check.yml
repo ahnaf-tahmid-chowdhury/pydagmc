@@ -61,6 +61,7 @@ jobs:
                 -DENABLE_FORTRAN=OFF \
                 -DENABLE_NETCDF=OFF \
                 -DENABLE_PYMOAB=ON \
+                -DPYMOAB_INSTALL_PREFIX="${CONDA_LOC}/.." \
                 -DBUILD_SHARED_LIBS=ON \
                 -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE} \
                 -DENABLE_HDF5=ON \

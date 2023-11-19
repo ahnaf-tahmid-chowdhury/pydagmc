@@ -26,28 +26,18 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Setup Conda Environment Windows and Mac
+      - name: Set up Python Ubuntu and MacOS
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+        if: ${{ matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' }}
+
+      - name: Setup Conda Environment Windows
         uses: conda-incubator/setup-miniconda@v2
         with:
           auto-activate-base: true
           activate-environment: ""
-        if: ${{ matrix.os == 'windows-latest' || matrix.os == 'macos-latest' }}
-
-      - name: Install HDF5 and Eigen Windows and Mac
-        shell: bash -l {0}
-        run: |
-          conda install curl eigen
-          conda install -c conda-forge hdf5=1.10.6
-          conda remove -y yaml-cpp
-          echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
-          echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
-          echo "PYTHON_EXECUTABLE=$(which python)" >> $GITHUB_ENV
-        if: ${{ matrix.os == 'windows-latest' || matrix.os == 'macos-latest' }}
-
-      - name: Install Python Packages
-        run: |
-          python -m pip install wheel
-          python -m pip install cython numpy pytest setuptools
+        if: ${{ matrix.os == 'windows-latest' }}
 
       - name: Install HDF5 and Eigen Ubuntu
         run: |
@@ -57,6 +47,30 @@ jobs:
           export HDF5_ROOT=/usr/lib/x86_64-linux-gnu/hdf5/serial
           export LD_LIBRARY_PATH="${HDF5_ROOT}:${LD_LIBRARY_PATH}"
         if: ${{ matrix.os == 'ubuntu-latest' }}
+
+      - name: Install HDF5 and Eigen MacOS
+        run: |
+          brew install hdf5 eigen
+          export HDF5_ROOT=/usr/local/opt/hdf5
+          export LD_LIBRARY_PATH="${HDF5_ROOT}/lib:${LD_LIBRARY_PATH}"
+        if: ${{ matrix.os == 'macos-latest' }}
+        
+      - name: Install HDF5 and Eigen Windows
+        shell: bash -l {0}
+        run: |
+          conda install curl eigen
+          conda install -c conda-forge hdf5
+          conda remove -y yaml-cpp
+          echo "HOME_PATH=$GITHUB_WORKSPACE/.." >> $GITHUB_ENV
+          echo "CONDA_LOC=$(conda info --base)/Library" >> $GITHUB_ENV
+        if: ${{ matrix.os == 'windows-latest' }}
+
+      - name: Install Python Packages
+        shell: bash -l {0}
+        run: |
+          python -m pip install wheel
+          python -m pip install cython numpy pytest setuptools
+          echo "PYTHON_EXECUTABLE=$(which python)" >> $GITHUB_ENV
 
       - name: Install MOAB Ubuntu
         run: |
@@ -72,6 +86,7 @@ jobs:
               -DENABLE_PYMOAB=ON \
               -DENABLE_BLASLAPACK=OFF \
               -DENABLE_FORTRAN=OFF \
+              -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE} \
               -DCMAKE_INSTALL_PREFIX=$Python_ROOT_DIR
           make
           make install
@@ -89,14 +104,13 @@ jobs:
           cd build
           # cmake, build and install
           cmake ../ \
-            -DCMAKE_INSTALL_PREFIX="${CONDA_LOC}/" \
+            -DCMAKE_INSTALL_PREFIX=$Python_ROOT_DIR \
             -DENABLE_BLASLAPACK=OFF \
             -DENABLE_FORTRAN=OFF \
             -DENABLE_PYMOAB=ON \
             -DBUILD_SHARED_LIBS=ON \
             -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE} \
             -DENABLE_HDF5=ON \
-            -DHDF5_ROOT="${CONDA_LOC}" \
           make
           make install
           cd $GITHUB_WORKSPACE
@@ -117,8 +131,8 @@ jobs:
                 -DCMAKE_INSTALL_PREFIX="${CONDA_LOC}/" \
                 -DENABLE_BLASLAPACK=OFF \
                 -DENABLE_FORTRAN=OFF \
-                -DENABLE_NETCDF=OFF \
                 -DENABLE_PYMOAB=ON \
+                -DPYMOAB_INSTALL_PREFIX="${CONDA_LOC}/.." \
                 -DBUILD_SHARED_LIBS=ON \
                 -DPYTHON_EXECUTABLE=${PYTHON_EXECUTABLE} \
                 -DENABLE_HDF5=ON \
