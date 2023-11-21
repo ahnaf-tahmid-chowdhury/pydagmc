@@ -73,7 +73,7 @@ jobs:
       - name: Install MOAB Ubuntu
         run: |
           cd $GITHUB_WORKSPACE
-          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git
+          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git -b windows-fix
           cd moab
           mkdir -p build
           cd build
@@ -96,7 +96,7 @@ jobs:
       - name: Install MOAB MacOS
         run: |
           cd $GITHUB_WORKSPACE
-          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git
+          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git -b windows-fix
           cd moab
           mkdir -p build
           cd build
@@ -120,7 +120,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd $GITHUB_WORKSPACE
-          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git
+          git clone https://ahnaf-tahmid@bitbucket.org/nuclear-engineering/moab.git -b windows-fix
           cd moab
           mkdir -p build
           cd build
