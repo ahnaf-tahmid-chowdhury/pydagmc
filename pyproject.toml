@@ -1,6 +1,12 @@
 # Build System Configuration
 [build-system]
-requires = ["setuptools", "setuptools_scm[toml]", "wheel"]
+requires = [
+    "setuptools",
+    "setuptools_scm[toml]>=6.0",
+    "scikit-build",
+    "cmake",
+    "ninja",
+]
 build-backend = "setuptools.build_meta"
 
 # Project Metadata

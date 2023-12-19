@@ -1,0 +1,3 @@
+[submodule "vendor/DAGMC"]
+	path = vendor/DAGMC
+	url = https://github.com/svalinn/DAGMC.git
